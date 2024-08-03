@@ -1,10 +1,28 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+const rootElement = document.getElementById("root");
+
+if (rootElement) {
+  const darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  if (darkModeMediaQuery.matches) {
+    rootElement.classList.add("dark");
+  }
+  darkModeMediaQuery.addEventListener("change", (e) => {
+    if (e.matches) {
+      rootElement.classList.add("dark");
+    } else {
+      rootElement.classList.remove("dark");
+    }
+  });
+
+  ReactDOM.createRoot(rootElement).render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+} else {
+  console.error("Root element not found");
+}
